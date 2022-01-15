@@ -5,4 +5,4 @@ from . import models
 class ProductListSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Product
-        fields = "_all_"
+        fields = "__all__"

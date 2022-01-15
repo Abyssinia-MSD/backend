@@ -113,7 +113,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'shop4',
+        'NAME': 'shop5',
 
 
         'USER': 'mekdes',
