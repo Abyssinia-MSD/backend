@@ -1,7 +1,7 @@
 from django.contrib import admin
 from vendor.models import Product
 
-from vendor.models import Category, Color, Product, ProductDetail, Shop, ShopOwner, Size, Type
+from vendor.models import Category, Color, Product, ProductDetail, Shop, Size, Type
 
 # Register your models here.
 
@@ -11,7 +11,6 @@ from vendor.models import Category, Color, Product, ProductDetail, Shop, ShopOwn
 
 
 admin.site.register(Shop)
-admin.site.register(ShopOwner)
 admin.site.register(Color)
 admin.site.register(Size)
 admin.site.register(Product)
