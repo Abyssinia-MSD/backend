@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-*6$j)i*1-+hqr^zsb)2yu1h+3nnubb)@t_tk9$oza-(cc(hro^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
@@ -49,12 +49,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'account.apps.AccountConfig',
-
-    'vendor',
+    'vendor.apps.VendorConfig',
     'rest_framework.authtoken',
-
-
-
+    'corsheaders',
 
 ]
 
@@ -63,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -70,7 +68,11 @@ MIDDLEWARE = [
     
 
 ]
-
+ALLOWED_HOSTS = ['*']
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+  'http://10.4.106.145:3000',
+)
 ROOT_URLCONF = 'shop.urls'
 AUTH_USER_MODEL = 'account.User'
 
@@ -178,11 +180,30 @@ USE_L10N = True
 USE_TZ = True
 
 
+import os
+STATIC_URL = '/static/'
+MEDIA_URL = '/uploads/'
+# STATICFILES_DIRS  = [
+#     BASE_DIR / 'frontend/static'
+# ]
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "mishassefa6@gmail.com"
+EMAIL_HOST_PASSWORD ="sovblqwdyoupqwzs"
+ #password associated with above email-id
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

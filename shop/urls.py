@@ -23,7 +23,11 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
   
    
-    path('', include("vendor.urls" , namespace="product")),
+   
+
+    path("accounts/", include("account.urls")),
+
+    path("", include("vendor.urls", namespace="product")),
 
 ]
 if settings.DEBUG:
