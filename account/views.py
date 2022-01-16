@@ -8,7 +8,7 @@ from vendor.models import Shop
 from django.conf import settings
 from django.core.mail import send_mail
 
-from vendor.seriliazer import ShopSerializer
+from vendor.seriliazer import ShopSerialiser
 # from rest_framework.decorators import action
 from .models import User
 from django.contrib.auth.hashers import make_password,check_password
@@ -80,7 +80,7 @@ class ImageRelated(generics.GenericAPIView):
 
 
 class UserCreateView(generics.GenericAPIView):
-    serializer_class = [UserSerializers,ShopSerializer]
+    serializer_class = [UserSerializers,ShopSerialiser]
     queryset = User.objects.all()
     permission_classes = [permissions.AllowAny, ]
 
