@@ -27,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+  'http://10.4.109.239:3000',
+)
+
 
 # Application definition
 
@@ -56,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    
 
 ]
 
@@ -113,7 +120,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'shop5',
+        'NAME': 'shop',
 
 
         'USER': 'mekdes',
@@ -144,6 +151,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+STATIC_URL = '/static/'
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media/"
 
 
 # Internationalization

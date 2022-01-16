@@ -3,10 +3,12 @@ from email.mime import image
 from itertools import product
 from pyexpat import model
 from tkinter import CASCADE
+from turtle import color
 from unicodedata import category
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.conf import settings
+from django_enumfield import enum
 
 from shop import settings
 
@@ -22,83 +24,62 @@ class Shop(models.Model):
         if self.shopOwner.shop_owner != True:
             raise ValidationError('can not add customers')
         return super().clean()
+    
+    def __str__(self):
+        return self.name
 
 
 class Color(models.Model):
-    c_id = models.PositiveIntegerField()
     name = models.CharField(max_length=50)
+   
+    
+    def __str__(self):
+        return self.name
 
 
 class Size(models.Model):
-    s_id = models.PositiveBigIntegerField()
-    name = models.CharField(max_length=50)
+   name = models.CharField(max_length=50)
+    
+    
+   def __str__(self):
+        return self.name
 
 
-class Category(models.Model):
+class Category(enum.Enum):
     WOMENS = 1
     MENS = 2
     KIDS = 3
 
-    CATEGORY_CHOICES = ((WOMENS, 'womens'), (MENS, 'mens'), (KIDS, 'kids'))
-
-    id = models.PositiveSmallIntegerField(
-        choices=CATEGORY_CHOICES, primary_key=True)
-
-    def __str__(self) -> str:
-        return self.get_id_display()
 
 
-class Type(models.Model):
-    AFAR = 1
-    AMHARA = 2
-    BENSHANGUL_GUMUZ = 3
-    GAMBELA = 4
-    HARARI = 5
-    OROMIA = 6
-    SNNPR = 7
-    SOMALIA = 8
-    TIGRAY = 9
+class Type(enum.Enum):
+    Afar_Traditional_Cloth = 1
+    Harar_Traditional_Cloth = 2
+    Gojam_Traditional_Cloth = 3
+    Gonder_Traditional_Cloth = 4
+    Agew_Traditional_Cloth = 5
+    Arsi_Traditional_Cloth = 6
+    Shewa_Traditional_Cloth = 7
+    Debub_Traditional_Cloth = 8
+    Hadari_Traditional_Cloth = 9
 
-    TYPE_CHOICES = ((AFAR, 'afar'), (AMHARA, 'amhara'), (BENSHANGUL_GUMUZ, 'benshangul_gumuz'), (GAMBELA, 'gambela'),
-                    (HARARI, 'harari'), (OROMIA, 'oromia'), (SNNPR, 'snnpr'), (SOMALIA, 'somalia'), (TIGRAY, 'tigray'))
-
-    id = models.PositiveSmallIntegerField(
-        choices=TYPE_CHOICES, primary_key=True)
-
-    def __str__(self) -> str:
-        return self.get_id_display()
-
-
-class ProductDetail(models.Model):
-    color = models.ForeignKey(
-        Color, related_name="Color", default=False, on_delete=models.CASCADE, null=True)
-    size = models.ForeignKey(Size, related_name="Size",
-                             default=False, on_delete=models.CASCADE, null=True)
-    amount = models.PositiveIntegerField()
+  
 
 
 class Product(models.Model):
-    
+    shope = models.ForeignKey(Shop , on_delete=models.CASCADE , null=False , default=False )
     name = models.CharField(max_length=200)
-    image = models.CharField(max_length=200)
+    image = models.ImageField(upload_to="images/", null=True)
     price = models.PositiveIntegerField()
-    product_detail = models.ForeignKey(
-        ProductDetail, related_name="ProductDetail", default=False, on_delete=models.CASCADE, null=True)
-    category = models.ForeignKey(
-        Category, related_name="Category", default=False, on_delete=models.CASCADE, null=True)
-    type = models.ForeignKey(
-        Type, related_name="Category", default=False, on_delete=models.CASCADE, null=True)
+    amount = models.PositiveIntegerField(null=True)
+    size = models.ManyToManyField(Size)
+    color = models.ManyToManyField(Color)
+    category = enum.EnumField(Category, default=Category.WOMENS)
+    type =enum.EnumField(Type, default=Type.Afar_Traditional_Cloth)
+    
+    
+    def __str__(self):
+        return self.name
 
 
 
-
-# class ShopOwner(models.Model):
-#     shop = models.ForeignKey(
-#         Shop, related_name="Shop", default=False, on_delete=models.CASCADE, null=True)
-#     seller = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="ShopOwner",
-#                                default=False, on_delete=models.CASCADE, null=True)
-
-#     def clean(self):
-#         if self.seller.shop_owner != True:
-#             raise ValidationError('can not add customers')
-#         return super().clean()
