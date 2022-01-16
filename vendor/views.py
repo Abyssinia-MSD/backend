@@ -21,6 +21,19 @@ from rest_framework.permissions import IsAuthenticated
 class ProductListView(viewsets.ModelViewSet):
     
     queryset = models.Product.objects.all()
+    
     serializer_class = seriliazer.ProductListSerializer
     permission_classes = (IsAdminOrReadOnly,)
+    
+    def get_queryset(self):
+        return super().get_queryset()
+    
+    
+class ColorListView(viewsets.ModelViewSet):
+    queryset = models.Color.objects.all()
+    serializer_class = seriliazer.ColorSerialiser
    
+   
+class SizeListView(viewsets.ModelViewSet):
+    queryset = models.Size.objects.all()
+    serializer_class = seriliazer.SizeSerialiser

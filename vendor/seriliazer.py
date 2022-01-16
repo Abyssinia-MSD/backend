@@ -3,15 +3,20 @@ from rest_framework import serializers
 from . import models
 
 
+
+        
+  
+  
+
 class ColorSerialiser(serializers.ModelSerializer):
     class Meta:
         model = models.Color
-        fields = ("name" , )
+        fields = ("name" ,"id" )
         
 class SizeSerialiser(serializers.ModelSerializer):
     class Meta:
         model = models.Size
-        fields =( "name", )
+        fields =( "name", "id" )
         
 class ShopSerialiser(serializers.ModelSerializer):
     class Meta:
@@ -22,12 +27,16 @@ class ShopSerialiser(serializers.ModelSerializer):
 class ProductListSerializer(serializers.ModelSerializer):
     size = serializers.SlugRelatedField(
         many=True,
+        slug_field='name',
+        # queryset=models.Color.objects.all())
         read_only=True,
-        slug_field='name'
+        
      )
     
     color = serializers.SlugRelatedField(
         many=True,
+        # queryset=models.Color.objects.all()
+        
         read_only=True,
         slug_field='name'
      )
