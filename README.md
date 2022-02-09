@@ -1,14 +1,14 @@
 # MSD_Ecommerce
 
 ## Getting started
-Install virtual env
+`Install virtual env
     $ pip install virtualenv
 
 Create Directory to store both your virtual environment and cloned Project.
     $ mkdir imakers_ecommerce
     $ cd imakers_ecommerce 
 Create Virtual Env
-    $ virtualenv hackenv
+    $ virtualenv hackenv`
 
 
 - [ ] clone Ecommerce Repository
