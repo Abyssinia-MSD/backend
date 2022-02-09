@@ -9,8 +9,10 @@ Create Directory to store both your virtual environment and cloned Project.
     $ cd imakers_ecommerce 
 Create Virtual Env
     $ virtualenv hackenv
-clone Ecommerce Repository
-    $ git clone https://gitlab.com/mekdii/msd_ecommerce.git
+
+
+- [ ] clone Ecommerce Repository
+- [ ] $ git clone https://gitlab.com/mekdii/msd_ecommerce.git
 
 Activate environment
 	In linux:
