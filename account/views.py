@@ -80,9 +80,13 @@ class ImageRelated(generics.GenericAPIView):
 
 
 class UserCreateView(generics.GenericAPIView):
-    serializer_class = [UserSerializers,ShopSerialiser]
     queryset = User.objects.all()
-    permission_classes = [permissions.AllowAny, ]
+    serializer_class = UserSerializers
+    permission_classes = (permissions.AllowAny, )
+   
+    # serializer_class = [UserSerializers,ShopSerialiser,]
+    # queryset = User.objects.all()
+    # permission_classes = [permissions.AllowAny, ]
 
 
     def post(self, request):
@@ -96,6 +100,8 @@ class UserCreateView(generics.GenericAPIView):
         
         profile_url = request.data.get("profile_url",None)
         business_id = request.data.get("business_id", None)
+        
+        
 
         ####shop attributes
         name = request.data.get("name","")
